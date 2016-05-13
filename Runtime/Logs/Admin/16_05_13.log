@@ -1,0 +1,73 @@
+[ 2016-05-13T18:46:41+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=7774
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T18:48:37+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=7498
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T18:49:52+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=6628
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T18:49:54+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8499
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T18:50:31+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=1214
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T19:08:51+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=1651
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T19:10:19+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=9006
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T19:12:25+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=3483
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T21:39:10+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=7241
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T21:39:36+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=817
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T21:45:26+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: Think\Model:create_sn方法不存在！
+
+[ 2016-05-13T21:54:03+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=3446
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T21:54:55+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=5822
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T21:55:40+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=2282
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-13T22:32:39+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1048:Column 'status' cannot be null
+ [ SQL语句 ] : INSERT INTO `goods` (`id`,`goods_category_id`,`market_price`,`shop_price`,`logo`,`sn`,`status`) VALUES ('3','8','1','1','/Public/Uploads/20160513/5735e577e69bf.jpg','2016051300000001',NULL)
+
+[ 2016-05-13T22:43:04+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1062:Duplicate entry '0' for key 'PRIMARY'
+ [ SQL语句 ] : INSERT INTO `goods_photo` (`goods_id`,`path`) VALUES ('3','/Public/Uploads/20160513/5735e7ec0bb8d.jpg'),('3','/Public/Uploads/20160513/5735e7ee52d02.jpg')
+
+[ 2016-05-13T23:06:00+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1062:Duplicate entry '2' for key 'PRIMARY'
+ [ SQL语句 ] : INSERT INTO `goods` (`id`,`goods_category_id`,`is_on_sale`,`goods_status`,`sort`,`market_price`,`shop_price`,`logo`,`sn`) VALUES ('2','9','1','2','1','1','1','/Public/Uploads/20160513/5735ed4f9bb6f.jpg','2016051300000001')
+
+[ 2016-05-13T23:14:43+08:00 ] 127.0.0.1 /Goods/%20add.html
+ERR: 非法操作: add
+
+[ 2016-05-13T23:18:31+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1062:Duplicate entry '0000-00-00' for key 'PRIMARY'
+ [ SQL语句 ] : INSERT INTO `goods_num` (`num`) VALUES ('1')
+
+[ 2016-05-13T23:43:42+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1364:Field 'data' doesn't have a default value
+ [ SQL语句 ] : INSERT INTO `goods_num` (`num`) VALUES ('1')
+
+[ 2016-05-13T23:50:31+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1364:Field 'data' doesn't have a default value
+ [ SQL语句 ] : INSERT INTO `goods_num` (`num`) VALUES ('1')
+
+[ 2016-05-13T23:52:59+08:00 ] 127.0.0.1 /Goods/add.html
+ERR: 1048:Column 'goods_status' cannot be null
+ [ SQL语句 ] : INSERT INTO `goods` (`supplier_id`,`brand_id`,`goods_category_id`,`is_on_sale`,`sort`,`market_price`,`shop_price`,`logo`,`inputtime`,`sn`,`goods_status`) VALUES ('1','6','8','1','100','1','1','/Public/Uploads/20160513/5735f85440970.jpg','1463154779','2016051300000001',NULL)
+

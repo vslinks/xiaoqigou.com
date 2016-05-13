@@ -28,6 +28,13 @@ class GoodsController extends Controller
      * 列表操作
      */
     public function index(){
+        //>>获取分页数据
+        $cond = array();//>>装搜索条件
+        $this->assign($this->_model->getPageResult($cond));
+        //>>取得品牌和分类数据
+        $this->assign($this->_model->getGoods());
+        //>>渲染视图
+        $this->display();
 
     }
 
@@ -48,8 +55,8 @@ class GoodsController extends Controller
             //>>数据添加成功
             $this->success('商品添加成功',U('index'));
         }else{
-            $this->assign('goodsCate',D('goodsCategory')->getList());
-//            var_dump(D('goodsCategory')->getList());exit;
+            //>>获取并分配商品品牌以及供应商数据到页面
+            $this->assign($this->_model->getRows());
             //>>渲染添加视图页面
             $this->display();
         }

@@ -107,4 +107,12 @@ class BrandModel extends Model
 
     }
 
+    /**
+     * 返回品牌数据
+     * @return array
+     */
+    public function getList(){
+        return $this->where(array('status' => 1))->select();
+    }
+
 }

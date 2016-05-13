@@ -112,6 +112,10 @@ class GoodsCategoryModel extends Model
         return $nestedSets;
     }
 
+    /**
+     * 返回商品分类数据
+     * @return array
+     */
     public function getList(){
         return $this->where(array('status' => 1))->select();
     }

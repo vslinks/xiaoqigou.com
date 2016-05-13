@@ -29,14 +29,14 @@ class UploadController extends Controller
             'exts'          =>  array('jpg','jpeg','gif','png'), //允许上传的文件后缀
             'autoSub'       =>  true, //自动子目录保存文件
             'subName'       =>  array('date', 'Ymd'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
-            'rootPath'      => './Public/Uploads/', //保存根路径
+            'rootPath'      =>  './Public/Uploads/', //保存根路径
             'savePath'      =>  '', //保存路径
             'saveName'      =>  array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
             'saveExt'       =>  '', //文件保存后缀，空则使用原后缀
             'replace'       =>  false, //存在同名是否覆盖
             'hash'          =>  true, //是否生成hash编码
             'callback'      =>  false, //检测文件是否存在回调，如果存在返回文件信息数组
-            'driver'        =>  'Qiniu', // 文件上传驱动
+/*            'driver'        =>  'Qiniu', // 文件上传驱动
             // 上传驱动配置
             'driverConfig'  =>  array(
                 'secretKey'      => 'XfGfeDjLMvKgw-sq0vvsHSgv_PRjxdlmRC5ESdpe', //七牛服务器AK密钥
@@ -44,7 +44,7 @@ class UploadController extends Controller
                 'domain'         => 'o6znemxiz.bkt.clouddn.com', //七牛空间域名
                 'bucket'         => 'xiaoqigou', //空间名称
                 'timeout'        => 300, //超时时间
-            ),
+            ),*/
         );
         //>>实例化上传文件类
 //        dump("这是一个测试");exit;
