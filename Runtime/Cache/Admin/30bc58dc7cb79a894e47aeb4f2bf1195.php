@@ -128,6 +128,22 @@
 
                 </li>
                 <li>
+                    <a href="<?php echo U('Goods/index');?>">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">商品管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Goods/index');?>">商品列表</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Goods/add');?>">添加商品</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li>
                     <a href="<?php echo U('ArticleCategory/index');?>">
                         <i class="fa fa-home"></i>
                         <span class="nav-label">文章分类管理</span>

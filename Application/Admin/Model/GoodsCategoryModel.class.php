@@ -111,4 +111,8 @@ class GoodsCategoryModel extends Model
         $nestedSets = new NestedSetsService($ORM,$this->trueTableName,'lft','rght','parent_id','id','level');
         return $nestedSets;
     }
+
+    public function getList(){
+        return $this->where(array('status' => 1))->select();
+    }
 }
