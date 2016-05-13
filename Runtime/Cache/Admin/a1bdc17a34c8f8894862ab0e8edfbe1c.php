@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center"><br />
-                        <input type="hidden" name="id" value="<?php echo ($row["id"]); ?>"/>
+                        <?php if(isset($row)): ?><input type="hidden" name="id" value="<?php echo ($row["id"]); ?>"/><?php endif; ?>
                         <input type="submit" class="button" value=" 确定 " />
                         <input type="reset" class="button" value=" 重置 " />
                     </td>

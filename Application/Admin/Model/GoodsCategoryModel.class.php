@@ -67,12 +67,12 @@ class GoodsCategoryModel extends Model
         //>>先判断是否有更改父级分类
         $data = $this->data;
         $parent_id = $this->getFieldById($this->data['id'],'parent_id');
-        if($this->data(['parent_id']) != $parent_id){
+        if($data['parent_id'] != $parent_id){
             //>>不等于说明移动了层级  ,才使用nestedSes 插件
             $nestedSets = $this->inistNes();
             //>>调用对象中的moveUnder  方法进行修改
-            $resutl = $nestedSets->moveUnder($data['id'],$data['parent_id'],'bottom');
-            if($resutl === false){
+            $result = $nestedSets->moveUnder($data['id'],$data['parent_id'],'bottom');
+            if($result === false){
                 //>>失败
                 $this->error = '请重新选择';
                 return false;
@@ -95,8 +95,8 @@ class GoodsCategoryModel extends Model
             'rght' => array('elt',$filesInfo['rght']),
         );
         return $this->where($map)->save(array('status' => 0));
-       /* //>>调用私有方法得到nestedSets 对象
-        $nested = $this->inistNes();
+        //>>调用私有方法得到nestedSets 对象
+  /*      $nested = $this->inistNes();
         //>>进行删除操作,这个 操作是一个物理删除
         return $nested->delete($id);*/
     }

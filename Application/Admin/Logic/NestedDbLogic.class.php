@@ -154,7 +154,7 @@ class NestedDbLogic implements DbMysql
         $sql = array_shift($param);//取得sql 语句结构
         $first = array_shift($param); //>.取出第二个参数
         $second  = array_shift($param); //>>取得第三个参数
-        unset($second['id']);  //>>删除id
+//        unset($second['id']);  //>>删除id
         $sql = str_replace('?T','`'.$first.'`',$sql); //>>把第?T替换掉
         $map = array();//>>用一个空数组来拼装sql语句
         foreach ($second as $key => $val){
