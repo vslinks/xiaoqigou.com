@@ -134,7 +134,6 @@
             <?php else: ?>
              var parent_node = zTreeInit.getNodeByParam('id',10);<?php endif; ?>
         zTreeInit.selectNode(parent_node);
-        console.debug(parent_node);
         $('#goods_category_id').val(parent_node.id);
         $('#goods_category_name').val(parent_node.name);
         });

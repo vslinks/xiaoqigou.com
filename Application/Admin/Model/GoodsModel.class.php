@@ -30,7 +30,7 @@ class GoodsModel extends Model
         ['supplier_id', 'require', '供货商不能为空', self::EXISTS_VALIDATE, '', self::MODEL_BOTH],
         ['shop_price', 'currency', '售价不合法', self::EXISTS_VALIDATE, '', self::MODEL_BOTH],
         ['market_price', 'currency', '市场价不合法', self::EXISTS_VALIDATE, '', self::MODEL_BOTH],
-        ['goods_status', 'require', '不能为空', self::EXISTS_VALIDATE, '', self::MODEL_BOTH],
+//        ['goods_status', 'require', '商品状态不能为空', self::EXISTS_VALIDATE, '', self::MODEL_BOTH],
     );
 
     /**
@@ -157,7 +157,7 @@ class GoodsModel extends Model
         //>>添加详细信息
         $content = array(
             'goods_id' => $goods_id,
-            'content' =>  I('post.content'),
+            'content' =>  I('post.content','',false),
         );
         //>>实例化商品详细描述模型
         $gooodsIntroModel = M('GoodsIntro');
@@ -189,6 +189,85 @@ class GoodsModel extends Model
         //>>都 完成了.
         $this->commit();
         return $goods_id;
+
+    }
+
+    public function findOne($id){
+        //>>获取一条回显数据
+        $row = $this
+            ->alias('g')
+            ->join('JOIN __GOODS_INTRO__ AS gc ON gc.goods_id=g.id')
+            ->find($id);
+
+        //>>获取相册数据
+        $photos = M('GoodsPhoto')
+            ->where(array('goods_id' => $id))
+            ->getField('path',true);
+        //>>判断并把相册数据放入回显数组中
+        if($row && $photos){
+            $row['photos'] = $photos;
+        }
+        //>>对商品状态进行重新处理.以便于回显 在这里做不选,还是要在js里面去做.
+/*        $goods_status = array();
+        if($row['goods_status'] & 1){
+            $goods_status[] = 1;
+        }
+        if($row['goods_status'] & 2){
+            $goods_status[] = 2;
+        }
+        if($row['goods_status'] & 4){
+            $goods_status[] = 4;
+        }
+        $row['goods_status'] = $goods_status;*/
+//        var_dump($row['goods_status']);exit;
+        return $row?$row:false;
+    }
+
+    /**
+     * 数据修改保存操作
+     */
+    public function saveGoods(){
+        //>>1保存常规数据
+        //>>开启事务
+        $this->startTrans();
+       if($this->save() === false){
+           $this->rollback();
+           return false;
+       } ;
+        //>>保存详细描述
+        $goods_id =  I('post.id');
+        $goods_intro = array(
+            'content' => I('post.content','',false),
+            'goods_id' => $goods_id,
+        );
+        $introModel = M('GoodsIntro');
+        if($introModel->save($goods_intro) === false){
+            $this->error = $introModel->getError();
+            $this->rollback();
+            return false;
+        };
+        //>>保存相册信息
+         $goods_photo = I('post.goods_photo');
+        if($goods_photo){
+            $photos = array();
+            //>>遍历出所有数据转换成一对就的二维数组便于保存
+            foreach($goods_photo as $val){
+                $photos[] = array(
+                    'goods_id' => $goods_id,
+                    'path'     => $val,
+                );
+            }
+            $photoModel = M('GoodsPhoto');
+            if($photoModel->addAll($photos) === false){
+                //>>相册数据保存失败
+                $this->error = $photoModel->getError();
+                $this->rollback();
+                return false;
+            }
+        }
+        //>>数据修改成功
+        $this->commit();
+        return true;
 
     }
 }

@@ -66,13 +66,44 @@ class GoodsController extends Controller
      * 商品编辑操作
      */
     public function edit(){
+        if(IS_POST){
+            //>>进行保存编辑操作
+            if($this->_model->create() === false){
+                //>> 获取数据失败
+                $this->error($this->_model->getError());
+            }
 
+            if($this->_model->saveGoods() === false){
+                //>> 保存数据失败
+                $this->error($this->_model->getError());
+            }
+            //>>修改成功
+            $this->success('修改成功',U('index'));
+
+        }else{
+            //>>获取回显数据
+            $row = $this->_model->findOne(I('get.id'));
+            if($row === false){
+                //>>没有数据
+                $this->error('没有相应数据');exit;
+            }
+            $this->assign('row',$row);
+            //>>获取分类数据和品牌数据和供应商数据.
+            $this->assign($this->_model->getRows());
+            //>>回显编辑页面
+            $this->display('add');
+        }
     }
 
     /**
      * 商品删除操作
      */
     public function delete(){
+        if($this->_model->where(array('id' =>I('get.id')))->setField('status',0) === false){
+            //>>提示跳转
+            $this->error($this->_model->getError());
+        }
+        $this->success('删除成功',U('index'));
 
     }
 }

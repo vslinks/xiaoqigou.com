@@ -39,6 +39,9 @@
             overflow-y: scroll;
             overflow-x: auto;
         }
+<?php if(isset($row)): ?>#logo_view {
+            width: 200px;
+        }<?php endif; ?>
     </style>
 
 </head>
@@ -63,13 +66,13 @@
             <table width="90%" id="general-table" align="center">
                 <tr>
                     <td class="label">商品名称：</td>
-                    <td><input type="text" name="goods_name" value=""size="30" />
+                    <td><input type="text" name="name" value="<?php echo ($row["name"]); ?>" size="30" />
                     <span class="require-field">*</span></td>
                 </tr>
                 <tr>
                     <td class="label">商品货号： </td>
                     <td>
-                        <input type="text" name="goods_sn" value="" size="20"/>
+                        <input type="text" name="goods_sn" value="<?php echo ($row["sn"]); ?>" size="20" readonly="readonly"/>
                         <span id="goods_sn_notice"></span><br />
                         <span class="notice-span"id="noticeGoodsSN">如果您不输入商品货号，系统将自动生成一个唯一的货号。</span>
                     </td>
@@ -77,14 +80,14 @@
                 <tr>
                     <td class="label">供应商：</td>
                     <td>
-                        <?php echo showSelect($supplier_list,"name","id","supplier_id");?>
+                        <?php echo showSelect($supplier_list,"name","id",'supplier_id',$row['supplier_id']);?>
                         <span class="require-field">*</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">商品品牌：</td>
                     <td>
-                        <?php echo showSelect($cate_list,"name","id","brand_id");?>
+                        <?php echo showSelect($cate_list,"name","id",'brand_id',$row['brand_id']);?>
                         <span class="require-field">*</span>
                     </td>
                 </tr>
@@ -99,14 +102,14 @@
                 <tr>
                     <td class="label">商品数量：</td>
                     <td>
-                        <input type="text" name="goods_number" size="8" value=""/>
+                        <input type="text" name="stock" size="8" value="<?php echo ($row["stock"]); ?>"/>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">是否上架：</td>
                     <td>
-                        <input type="radio" name="is_on_sale" value="1"/> 是
-                        <input type="radio" name="is_on_sale" value="0"/> 否
+                        <input type="radio" name="is_on_sale" value="1" class="is_on_sale"/> 是
+                        <input type="radio" name="is_on_sale" value="0" class="is_on_sale"/> 否
                     </td>
                 </tr>
                 <tr>
@@ -120,25 +123,25 @@
                 <tr>
                     <td class="label">推荐排序：</td>
                     <td>
-                        <input type="text" name="sort" size="5" value="100"/>
+                        <input type="text" name="sort" size="5" value="<?php echo ((isset($row["sort"]) && ($row["sort"] !== ""))?($row["sort"]):20); ?>"/>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">市场售价：</td>
                     <td>
-                        <input type="text" name="market_price" value="0" size="20" />
+                        <input type="text" name="market_price" value="<?php echo ($row["market_price"]); ?>" size="20" />
                     </td>
                 </tr>
                 <tr>
                     <td class="label">本店售价：</td>
                     <td>
-                        <input type="text" name="shop_price" value="0" size="20" />
+                        <input type="text" name="shop_price" value="<?php echo ($row["shop_price"]); ?>" size="20" />
                     </td>
                 </tr>
                 <tr>
                     <td class="label">商品LOGO：</td>
                     <td>
-                        <input type="hidden" value="$row.logo" id="logo" name="logo"/>
+                        <input type="hidden" value="<?php echo ($row["logo"]); ?>" id="logo" name="logo"/>
                         <input id="file_upload" name="file_upload" type="file" multiple="true">
                         <img src="<?php echo ($row["logo"]); ?>" id="logo_view" />
                     </td>
@@ -146,17 +149,17 @@
                 <tr>
                     <td class="label">商品详细描述：</td>
                     <td>
-                        <textarea id="editor" type="text/plain" style="width:500px;height:200px;" name="content"></textarea>
+                        <textarea id="editor" type="text/plain" style="width:500px;height:200px;" name="content"><?php echo ($row["content"]); ?></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">商品相册：</td>
                     <td>
                         <div class="myupload-img-box">
-                            <?php if(is_array($row["paths"])): foreach($row["paths"] as $key=>$path): ?><div class="myupload-pre-item">
-                                    <img src=""/>
+                            <?php if(is_array($row["photos"])): $i = 0; $__LIST__ = $row["photos"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$photo): $mod = ($i % 2 );++$i;?><div class="myupload-pre-item">
+                                    <img src="<?php echo ($photo); ?>"/>
                                     <a href="#">×</a>
-                                </div><?php endforeach; endif; ?>
+                                </div><?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
 
                         <div>
@@ -166,6 +169,7 @@
                 </tr>
             </table>
             <div class="button-div">
+                <?php if(isset($row)): ?><input type="hidden" value=" <?php echo ($row["id"]); ?> " name="id" class="button"/><?php endif; ?>
                 <input type="submit" value=" 确定 " class="button"/>
                 <input type="reset" value=" 重置 " class="button" />
             </div>
@@ -189,10 +193,56 @@
       <script type="text/javascript" src="http://vslinks.shop.com/Public/Admin/ext/zTree/js/jquery.ztree.core.min.js"></script>
     <script type="text/javascript">
       $(function(){
+          //>>回显是否上架
+          $('.is_on_sale').val([<?php echo ((isset($row["is_on_sale"]) && ($row["is_on_sale"] !== ""))?($row["is_on_sale"]):1); ?>]);
+          //>>回显商品状态
+      <?php if(isset($row)): ?>var goods_status = [];
+          if(<?php echo ($row["goods_status"]); ?> & 1){
+              goods_status.unshift(1);
+          }
+          if(<?php echo ($row["goods_status"]); ?> & 2){
+              goods_status.unshift(2);
+          }
+          if(<?php echo ($row["goods_status"]); ?> & 4){
+              goods_status.unshift(4);
+          }
+          $('.goods_status').val(goods_status)<?php endif; ?>
+
+              var setting = {
+                  "data"  : {
+                      "simpleData" : {
+                          "enable"  : true,
+                          "pIdKey"  : 'parent_id',  //>>告知 zTree插件 ,我们使用父级id号为parent_id  .
+//                      "idKey"   : "id",
+//                      "rootPId" : 0
+                      }
+                  },
+                  "callback" : {
+                      "onClick" : function(event,treeId,treeNode){
+                          //>>点击事件时的回调函数 ,event 为标准点击事件对象,treeId对应ztree的treeid
+                          //>> treeNode  被点击节点的json数据对象
+                          //>>当点击 的时候 ,我们要把点击 的数据回显到上面一个文本框内,
+                          // 并且把数据id放到一个隐藏域中,以便于数据提交
+//                    console.debug(treeNode);
+                          $('#goods_category_name').val(treeNode.name);
+                          $('#goods_category_id').val(treeNode.id);
+                      }
+                  }
+              };
+              var zNodes = <?php echo ($goods_cate_list); ?>;  //>>保存所有节点数据
+              var zTreeInit = $.fn.zTree.init($('#goods-categories-tree'),setting,zNodes);
+              zTreeInit.expandAll(true);
+          <?php if(isset($row)): ?>var goods_category_id = <?php echo ($row["goods_category_id"]); ?>;
+              var parent_node =  zTreeInit.getNodeByParam('id',goods_category_id); //>>细心啊,最近怎么那么不细心呢
+          <?php else: ?>
+              var parent_node = zTreeInit.getNodeByParam('id',10);<?php endif; ?>
+              zTreeInit.selectNode(parent_node);
+          $('#goods_category_name').val(parent_node.name);
+          $('#goods_category_id').val(parent_node.id);
+
           //>>实现编辑器
           UE.getEditor('editor');
         //>>实现商品分类的树状显示
-          create_ztree();
             //>>实现logo图片上传优化
           creatae_logo();
           //>>实现相册图片上传
@@ -274,32 +324,6 @@
                },*/
           });
 
-      }
-      function create_ztree(){
-          var setting = {
-              "data"  : {
-                  "simpleData" : {
-                      "enable"  : true,
-                      "pIdKey"  : 'parent_id',  //>>告知 zTree插件 ,我们使用父级id号为parent_id  .
-//                      "idKey"   : "id",
-//                      "rootPId" : 0
-                  }
-              },
-              "callback" : {
-                  "onClick" : function(event,treeId,treeNode){
-                      //>>点击事件时的回调函数 ,event 为标准点击事件对象,treeId对应ztree的treeid
-                      //>> treeNode  被点击节点的json数据对象
-                      //>>当点击 的时候 ,我们要把点击 的数据回显到上面一个文本框内,
-                      // 并且把数据id放到一个隐藏域中,以便于数据提交
-//                    console.debug(treeNode);
-                      $('#goods_category_name').val(treeNode.name);
-                      $('#goods_category_id').val(treeNode.id);
-                  }
-              }
-          };
-          var zNodes = <?php echo ($goods_cate_list); ?>;  //>>保存所有节点数据
-          var zTreeInit = $.fn.zTree.init($('#goods-categories-tree'),setting,zNodes);
-          zTreeInit.expandAll(true);
       }
     </script>
 

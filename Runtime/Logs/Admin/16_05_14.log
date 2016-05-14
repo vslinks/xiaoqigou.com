@@ -7,3 +7,142 @@ ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
 [ 2016-05-14T00:43:08+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=6323
 ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
 
+[ 2016-05-14T10:42:19+08:00 ] 127.0.0.1 /Goods/edit/id/1.html
+ERR: 1146:Table 'tp1229.goods_content' doesn't exist
+ [ SQL语句 ] : SELECT * FROM goods g JOIN goods_content AS gc ON gc.goods_id=g.id  WHERE `id` = 'get.id' LIMIT 1  
+
+[ 2016-05-14T11:15:49+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=4320
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:16:49+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=4343
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:18:51+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=203
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:21:37+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8486
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:21:58+08:00 ] 127.0.0.1 /GoodsCategory/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=5770
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:22:21+08:00 ] 127.0.0.1 /GoodsCategory/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=4573
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:22:25+08:00 ] 127.0.0.1 /GoodsCategory/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8538
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:24:39+08:00 ] 127.0.0.1 /GoodsCategory/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=1397
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:24:53+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=1861
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:25:04+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=2861
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:27:03+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=5704
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:27:06+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=9921
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:29:22+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=3164
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:29:25+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=5957
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:29:31+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=2934
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:29:35+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=6125
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:30:12+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=6430
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:30:16+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=5942
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:31:08+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=2676
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:31:45+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=3830
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:32:30+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=555
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:33:32+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=1848
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:33:36+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=67
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:33:51+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=6583
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:33:54+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8382
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:35:13+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8783
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:37:02+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=7870
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:39:07+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=1684
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:39:10+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8051
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:40:49+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=5022
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T11:42:39+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=7270
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T13:06:12+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=4167
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T13:09:20+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=7623
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:20:22+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=851
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:25:10+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8066
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:25:15+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=3309
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:25:16+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=9241
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:26:20+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=438
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:26:37+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=3355
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:29:31+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8979
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:31:05+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=761
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:31:10+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=4816
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:31:57+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=6832
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:34:31+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8322
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+
+[ 2016-05-14T14:35:18+08:00 ] 127.0.0.1 /Goods/f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php?ct=8779
+ERR: 非法操作:f83ff483e46e4db58acdb24d11c7f0bafiltercheck.php
+

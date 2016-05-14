@@ -12,12 +12,16 @@
  * @param $fields_id
  * @param $name
  */
-function showSelect(array $data,$fields_name,$fields_id,$name){
+function showSelect(array $data,$fields_name,$fields_id,$name,$id){
 
     $selectHtml = '<select name="' . $name . '" >';
     $selectHtml .= '<option value="">请选择...</option>';
+    $selected = "";
     foreach($data as $val){
-        $selectHtml .= '<option value="' . $val[$fields_id] . '">' . $val[$fields_name] . '</option>';
+        if($val[$fields_id] == $id){
+            $selected = 'selected="selected"';
+        }
+        $selectHtml .= '<option value="' . $val[$fields_id] . '" ' . $selected . '>' . $val[$fields_name] . '</option>';
     }
     $selectHtml .= '</select>';
     return $selectHtml;
