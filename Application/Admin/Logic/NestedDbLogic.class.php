@@ -78,13 +78,12 @@ class NestedDbLogic implements DbMysql
     }
     public function getOne($sql, array $args = array())
     {
-        /*echo __METHOD__ . "</br>";
-        dump(func_get_args());
-        echo "</hr>";*/
+//        echo __METHOD__ . "</br>";
+//        dump(func_get_args());
+//        echo "</hr>";
 
         $param = func_get_args();//>> 接收所有参数
         $sql = array_shift($param);
-//        dump($param);
         $sql = str_replace('?F',$param[0],$sql);
         $sql = str_replace('?T',$param[1],$sql);
         $max = array_shift(M()->query($sql));
@@ -104,7 +103,6 @@ class NestedDbLogic implements DbMysql
         $sql = array_shift($param);//>>取出条一个元素 sql语句结构
         //>> 用正则表达式把sql语句拆分成一个数组.
         $sqls = preg_split('/\?[TFN]/ ',$sql);
-//        dump($sqls);
         $map = array();
         foreach($sqls as $key => $val){
             $map[] = $val . $param[$key];
@@ -121,9 +119,9 @@ class NestedDbLogic implements DbMysql
 
     public function query($sql, array $args = array())
     {
-      /*  echo __METHOD__ . "</br>";
-        dump(func_get_args());
-        echo "</hr>";*/
+//        echo __METHOD__ . "</br>";
+//        dump(func_get_args());
+//        echo "</hr>";
 
         $param = func_get_args();
         $sql = array_shift($param);//>>取出条一个元素 sql语句结构
@@ -140,16 +138,17 @@ class NestedDbLogic implements DbMysql
         if($result === false){
             return false;
         }
-        return (M()->getLastInsID());
+        $result = (M()->getLastInsID());
+        return $result;
 
         // TODO: Implement query() method.
     }
 
     public function insert($sql, array $args = array())
-    {/*
-        echo __METHOD__ . "</br>";
-        dump(func_get_args());
-        echo "</hr>";*/
+    {
+//        echo __METHOD__ . "</br>";
+//        dump(func_get_args());
+//        echo "</hr>";
         $param = func_get_args();//>>接收所有参数
         $sql = array_shift($param);//取得sql 语句结构
         $first = array_shift($param); //>.取出第二个参数
@@ -163,8 +162,12 @@ class NestedDbLogic implements DbMysql
         //>>拼接sql语句
         $sql = str_replace('?%',implode(',',$map),$sql);
         //>>调用方法执行sql 语句
-        $result = M()->execute($sql);
-        return $result;
+        $noeModel =  M();
+        if($noeModel->execute($sql) ===false){
+            //>>失败
+            return false;
+        }
+        return $noeModel->getLastInsID();
         // TODO: Implement insert() method.
     }
 

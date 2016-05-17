@@ -10,7 +10,7 @@ namespace Admin\Model;
 
 use Org\Util;
 use Think\Model;
-
+use Think\Verify;
 /**
  * Class AdminModel
  * @package Admin\Model
@@ -29,6 +29,7 @@ class AdminModel extends Model
         ['email', '', '邮箱已经存在', self::EXISTS_VALIDATE, 'unique', self::MODEL_INSERT],
         ['password', '6,12', '密码需要6-12位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT],
         ['repassword', 'password', '两次密码输入不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_INSERT],
+//        ['captcha', 'checkVerify', '验证码输入不正确', self::EXISTS_VALIDATE, 'callback', 'login'],
     );
 
     /**
@@ -42,7 +43,59 @@ class AdminModel extends Model
         array('last_login_time',NOW_TIME,'login'),
         array('last_login_ip','get_client_ip','login','function',1),
     );
+    protected function checkVerify($code)
+    {
+        $verify = new Verify();
+        if($verify->check($code) === false){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
+    /**
+     * 登录验证相关操作
+     */
+    public function checkLogin()
+    {
+        $username = $this->data['username'];
+        $password = $this->data['password'];
+       if($row = $this->getByUsername($username))
+       {
+           //>>如果有数据进行密码验证
+           if(md5(md5($password) . $row['salt']) == $row['password'])
+           {
+               //>>验证通过.把数据信息保存到sessin中
+               session('admin_info',$row);
+               //>>把登录管理对应的权限查询出来 存入session中
+               $sql = "SELECT path FROM permission WHERE  path <> '' AND id IN(SELECT ap.permission_id FROM admin AS a INNER JOIN admin_permission AS ap ON a.id=ap.`admin_id`
+WHERE id = " . $row['id'] . " UNION
+SELECT permission_id FROM role_permission AS rp INNER JOIN
+(SELECT role_id FROM admin AS a INNER JOIN admin_role AS ar ON A.`id`=ar.`admin_id`
+WHERE id = " . $row['id'] . ") AS roleids ON rp.role_id=roleids.role_id);
+";
+               //>>根据sql 语句查询出权限表
+               $permission_ids = M()->query($sql);
+               //>>循环,把数据放在一个一维数组中
+               $permission_info = array();
+               foreach($permission_ids as $val){
+                   $permission_info[] = $val;
+               }
+               session("permission_info",$permission_info);
+               return true;
+           }
+           //>>比对不成功,
+           return false;
+       }else
+           {
+              //>>没有数据,登录失败
+               return false;
+           }
+    }
+    /**
+     * 专业添加管理员相关数据操作
+     * @return bool|mixed
+     */
     public function addAdmin()
     {
         //>>添加常规数据
@@ -103,15 +156,15 @@ class AdminModel extends Model
     /**
      * 获取一条数据
      */
-    public function getRow($id)
+    public function getRow($admin_id)
     {
         //>>常规数据
         $row = $this->alias('a')
             ->join('JOIN admin_role AS ar ON a.id=ar.admin_id')
-            ->find($id);
+            ->find($admin_id);
         //>>获取额外权限
         $admin_permission = M('AdminPermission')
-            ->where(array('admin_id' => $id))
+            ->where(array('admin_id' => $admin_id))
             ->getField('permission_id',true);
         $row['permission'] = json_encode($admin_permission);
         return $row;
@@ -169,7 +222,6 @@ class AdminModel extends Model
             );
         }
         if($admin_permissionModel->addAll($admin_permission) === false){
-            $this->error = $admin_permissionModel->getError();
             $this->error = $admin_permissionModel->getError();
             $this->rollback();
             return false;

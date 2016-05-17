@@ -18,7 +18,7 @@ use Think\Controller;
 class AdminController extends Controller
 {
     /**
-     * @var \Admin\Model\ArticleCategoryModel
+     * @var \Admin\Model\AdminModel
      */
     protected $_model = null;
 
@@ -53,30 +53,66 @@ class AdminController extends Controller
     }
 
     /**
+     * 登录操作
+     */
+    public function login()
+    {
+        if(IS_POST)
+        {
+            if($this->_model->create('','login') === false){
+                $this->error($this->_model->getError(),U('login'));
+            }
+             if($this->_model->checkLogin() === false)
+             {
+                 //>>登录失败
+                 $this->error('账号或密码错误',U('login'));
+             }
+
+            //>>登录成功
+            $this->success('登录成功',U('Index/index'));
+        }else
+            {
+                //>>渲染登录视图页面
+                $this->display('Login/login');
+            }
+    }
+
+    /**
+     * 退出操作
+     */
+    public function logout()
+    {
+        session(null);
+        $this->success('退出成功',U('login'));
+    }
+    /**
      * 添加操作
      */
     public function add()
     {
         if(IS_POST){
             //>>进行添加管理员操作
-            if($this->_model->create() === false){
+            if($this->_model->create() === false)
+            {
                 //>>收集数据失败
                 $this->error($this->_model->getError());
             }
 
-            if($this->_model->addAdmin() === false){
+            if($this->_model->addAdmin() === false)
+            {
                 //>>添加数据失败
                 $this->error($this->_model->getError());
             }
             //>> 添加成功
             $this->success('添加成功',U('index'));
-        }else{
-            //>>1获取所有数据
-            $this->_before_view();
-            //>>渲染添加视图页面
-            $this->display();
+        }else
+            {
+                //>>1获取所有数据
+                $this->_before_view();
+                //>>渲染添加视图页面
+                $this->display();
 
-        }
+            }
 
     }
 

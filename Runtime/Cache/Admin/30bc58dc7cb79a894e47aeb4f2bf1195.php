@@ -49,7 +49,7 @@
                             <li><a class="J_menuItem" href="<?php echo U('mailbox');?>">信箱</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo U('logout');?>">安全退出</a>
+                            <li><a href="<?php echo U('Admin/logout');?>">安全退出</a>
                             </li>
                         </ul>
                     </div>
@@ -80,6 +80,51 @@
                         </li>
                     </ul>
 
+                </li>
+                <li>
+                    <a href="<?php echo U('Menu/index');?>">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">菜单管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Menu/index');?>">菜单列表</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Menu/add');?>">添加菜单</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="<?php echo U('Admin/index');?>">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">管理员管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Admin/index');?>">管理员列表</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Admin/add');?>">添加管理员</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="<?php echo U('Role/index');?>">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">角色管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Role/index');?>">角色列表</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="<?php echo U('Role/add');?>">添加角色</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="<?php echo U('Brand/index');?>">
@@ -128,20 +173,19 @@
 
                 </li>
                 <li>
-                    <a href="<?php echo U('Goods/index');?>">
+                    <a href="<?php echo U('Permission/index');?>">
                         <i class="fa fa-home"></i>
-                        <span class="nav-label">商品管理</span>
+                        <span class="nav-label">权限管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="<?php echo U('Goods/index');?>">商品列表</a>
+                            <a class="J_menuItem" href="<?php echo U('Permission/index');?>">权限列表</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="<?php echo U('Goods/add');?>">添加商品</a>
+                            <a class="J_menuItem" href="<?php echo U('Permission/add');?>">添加权限</a>
                         </li>
                     </ul>
-
                 </li>
                 <li>
                     <a href="<?php echo U('ArticleCategory/index');?>">

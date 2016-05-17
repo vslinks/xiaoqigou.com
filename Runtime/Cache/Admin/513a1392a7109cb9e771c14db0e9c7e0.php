@@ -11,14 +11,14 @@
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="./Public/Admin/ext/blog/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./Public/Admin/ext/blog/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="http://vslinks.shop.com/Public/Admin/ext/blog/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://vslinks.shop.com/Public/Admin/ext/blog/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Morris -->
-    <link href="./Public/Admin/ext/blog/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="http://vslinks.shop.com/Public/Admin/ext/blog/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
 
-    <link href="./Public/Admin/ext/blog/css/animate.min.css" rel="stylesheet">
-    <link href="./Public/Admin/ext/blog/css/style.min.css" rel="stylesheet"><base target="_blank">
+    <link href="http://vslinks.shop.com/Public/Admin/ext/blog/css/animate.min.css" rel="stylesheet">
+    <link href="http://vslinks.shop.com/Public/Admin/ext/blog/css/style.min.css" rel="stylesheet"><base target="_blank">
 
 </head>
 
@@ -409,24 +409,24 @@
         </div>
 
     </div>
-    <script src="./Public/Admin/ext/blog/js/jquery.min.js@v=2.1.4"></script>
-    <script src="./Public/Admin/ext/blog/js/bootstrap.min.js@v=3.3.5"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/jquery.flot.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/jquery.flot.symbol.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/flot/curvedLines.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="./Public/Admin/ext/blog/js/demo/peity-demo.min.js"></script>
-    <script src="./Public/Admin/ext/blog/js/content.min.js@v=1.0.0"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/easypiechart/jquery.easypiechart.js"></script>
-    <script src="./Public/Admin/ext/blog/js/plugins/sparkline/jquery.sparkline.min.js"></script>
-    <script src="./Public/Admin/ext/blog/js/demo/sparkline-demo.min.js"></script>
+    <script src="/Public/Admin/js/jquery.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/bootstrap.min.js@v=3.3.5"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/jquery.flot.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/flot/curvedLines.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/demo/peity-demo.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/content.min.js@v=1.0.0"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="http://vslinks.shop.com/Public/Admin/ext/blog/js/demo/sparkline-demo.min.js"></script>
     <script>
         $(document).ready(function(){$(".chart").easyPieChart({barColor:"#f8ac59",scaleLength:5,lineWidth:4,size:80});$(".chart2").easyPieChart({barColor:"#1c84c6",scaleLength:5,lineWidth:4,size:80});var d1=[[1262304000000,1],[1264982400000,100],[1267401600000,1],[1270080000000,200],[1272672000000,1],[1275350400000,100],[1277942400000,1],[1280620800000,300]];var d2=[[1262304000000,100],[1264982400000,1],[1267401600000,150],[1270080000000,1],[1272672000000,230],[1275350400000,1],[1277942400000,150],[1280620800000,10]];var data3=[{label:"Data 1",data:d1,color:"#23c6c8"},{label:"Data 2",data:d2,color:"#1ab394"}];$.plot($("#flot-chart3"),data3,{xaxis:{tickDecimals:0},series:{lines:{show:true,fill:true,fillColor:{colors:[{opacity:1},{opacity:1}]},},curvedLines:{active:true,fit:true,apply:true},points:{width:0.1,show:false},},grid:{show:false,borderWidth:0},legend:{show:false,}});var mapData={"US":298,"SA":200,"DE":220,"FR":540,"CN":120,"AU":760,"BR":550,"IN":200,"GB":120,};$("#world-map").vectorMap({map:"world_mill_en",backgroundColor:"transparent",regionStyle:{initial:{fill:"#e4e4e4","fill-opacity":0.9,stroke:"none","stroke-width":0,"stroke-opacity":0}},series:{regions:[{values:mapData,scale:["#1ab394","#22d6b1"],normalizeFunction:"polynomial"}]},})});
     </script>

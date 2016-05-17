@@ -1,0 +1,195 @@
+<extend name='Layout:base'/>
+<block name='content'>
+    <h1>
+        <span class="action-span"><a href="{:U('index')}">菜单管理</a></span>
+        <span class="action-span1"><a href="#">小溪沟 管理中心</a></span>
+        <span id="search_id" class="action-span1"> - {$meta_title} </span>
+    </h1>
+    <div style="clear:both"></div>
+    <div class="main-div">
+        <form method="post" action="{:U('')}" enctype="multipart/form-data" >
+            <table cellspacing="1" cellpadding="3" width="100%">
+                <tr>
+                    <td class="label">菜单名称:</td>
+                    <td>
+                        <input type='text' name='name' maxlength="20" value='{$row.name}' size='27' /> <font color="red">*</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">path:</td>
+                    <td>
+                        <input type='text' name='path' value='{$row.path}' size='27' placeholder='如非菜单需要填写'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">上级菜单:</td>
+                    <td>
+                        <input type="hidden" name='parent_id' id="parent_id" value="{$row.parent_id}"/>
+                        <input type="hidden" name='re_parent_id' value="{$row.parent_id}"/>
+                        <input type="text" id="parent_name" value="请选择" disabled="disabled" style="padding-left:5px;"/>
+                        <ul id='menu_tree' class='ztree' style='height:auto;'></ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">关联权限:</td>
+                    <td>
+                        <div id="permission"></div>
+                        <ul id='permission_ztree' class='ztree' style='height:auto;'></ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">排序:</td>
+                    <td>
+                        <input type="text" name='sort' value="{$row.sort|default=50}" size="15" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否显示:</td>
+                    <td>
+                        <input type="radio" name="status" value="1" class='status'/> 是
+                        <input type="radio" name="status" value="0" class='status'/> 否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">简介:</td>
+                    <td>
+                        <textarea name="intro" style='width:300px;height:100px'>{$row.intro}</textarea>
+                    </td>
+                </tr>
+            </table>
+            <div class="button-div">
+                <present name="row">
+                    <input type="hidden" value=" {$row.id} " name="id" class="button"/>
+                </present>
+                <input type="submit" value=" 确定 " class="button"/>
+                <input type="reset" value=" 重置 " class="button" />
+            </div>
+        </form>
+    </div>
+</block>
+<block name="css">
+    <css href="__EXT__/zTree/css/zTreeStyle/zTreeStyle.css" />
+    <style type="text/css">
+        .ztree{
+            width:220px;
+            height:auto;
+            margin-top: 10px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
+</block>
+<block name='js'>
+    <js href="__PUBLIC__/Admin/js/jquery.min.js"/>
+    <js href="__EXT__/zTree/js/jquery.ztree.core.js"/>
+    <js href="__EXT__/zTree/js/jquery.ztree.excheck.min.js" />
+    <script type="text/javascript">
+        $(function(){
+            //>>回显是否显示状态
+            $('.status').val([{$row.status|default=1}]);
+            function menu(){
+                var setting = {
+                    "data"  : {
+                        "simpleData" : {
+                            "enable"  : true,
+                            "pIdKey"  : 'parent_id',  //>>告知 zTree插件 ,我们使用父级id号为parent_id  .
+//                      "idKey"   : "id",
+//                      "rootPId" : 0
+                        }
+                    },
+                    "callback" : {
+                        "onClick" : function(event,treeId,treeNode){
+                            //>>点击事件时的回调函数 ,event 为标准点击事件对象,treeId对应ztree的treeid
+                            //>> treeNode  被点击节点的json数据对象
+                            //>>当点击 的时候 ,我们要把点击 的数据回显到上面一个文本框内,
+                            // 并且把数据id放到一个隐藏域中,以便于数据提交
+//                    console.debug(treeNode);
+                            $('#parent_name').val(treeNode.name);
+                            $('#parent_id').val(treeNode.id);
+                        }
+                    }
+                };
+                var zNodes = {$menu_list};  //>>保存所有节点数据
+                var zTreeInit = $.fn.zTree.init($('#menu_tree'),setting,zNodes);
+                zTreeInit.expandAll(true);
+
+            <present name="row">
+                //>>如果row 变量有定义 在这里回显角色
+                var parent_node = zTreeInit.getNodeByParam('id',{$row['parent_id']});
+//                console.debug(parent_node);
+                zTreeInit.selectNode(parent_node);
+                $('#parent_id').val(parent_node.id);
+                $('#parent_name').val(parent_node.name);
+            </present>
+            }
+            menu();//>>调用角色方法
+/**----------------------------------------------分隔线----------------------------------------------------------------*/
+            //>>用一个函数来封装额外权限树状结构显示
+            function permission()
+            {
+                var setting =
+                {
+                    "check":
+                    {
+                        "enable": true,
+                        "chkboxType": {"Y": "s", "N": "s"}
+                    },
+
+                    "data":
+                    {
+                        "simpleData":
+                        {
+                            "enable": true,
+                            "pIdKey": 'parent_id'  //>>告知 zTree插件 ,我们使用父级id号为parent_id  .
+                        }
+                    },
+                    "callback":
+                    {
+                        "onCheck": function ()
+                        {
+                            //>> 获取所有被选中的节点
+                            var checkedNodes = zTreeInit.getCheckedNodes(true); //>>参数true表示获取选中的,如果为false 表示获取未选中的
+//                        console.debug(checkedNodes);
+                            //>>先删除所有隐藏域
+                            myHidden.empty();
+                            $(checkedNodes).each(function()
+                            {
+                                //>>在这里处理选中之后的事务
+                                var id=this.id; //>>取出id
+                                var name=this.name; //>>取出角色描述
+                                //>>添加一个隐藏域.
+                                var html = "<input type='hidden' name='permission_id[]' value='" + id + "' />";
+                                $(html).appendTo(myHidden);
+                            })
+                        }
+                    }
+                };
+                var myHidden = $('#permission');
+                var myUl = $('#permission_ztree');
+                var zNodes = {$permission_list};  //>>保存所有节点数据
+//            console.debug(zNodes);
+                var zTreeInit = $.fn.zTree.init(myUl,setting,zNodes);
+                zTreeInit.expandAll(true);
+            <present name="row">
+                var menu_permission = {$row.permission_ids};
+            $(menu_permission).each(function(index,value){
+                //>>在这里设置回去显
+                //>>获取节点对象
+                var node = zTreeInit.getNodeByParam('id',value);
+                //>>使用checkNode方法实现回显.
+                zTreeInit.checkNode(node,true);
+
+                //>>在这里把隐藏域添加 上
+                var html = "<input type='hidden' name='permission_id[]' value='" + value + "' />";
+                $(html).appendTo(myHidden);
+            })
+            </present>
+        }
+
+        //>>调用额外权限方法
+        permission();
+        });
+    </script>
+</block>

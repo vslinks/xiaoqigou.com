@@ -49,7 +49,7 @@
                             <li><a class="J_menuItem" href="{:U('mailbox')}">信箱</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="{:U('logout')}">安全退出</a>
+                            <li><a href="{:U('Admin/logout')}">安全退出</a>
                             </li>
                         </ul>
                     </div>
@@ -80,6 +80,21 @@
                         </li>
                     </ul>
 
+                </li>
+                <li>
+                    <a href="{:U('Menu/index')}">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">菜单管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="{:U('Menu/index')}">菜单列表</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="{:U('Menu/add')}">添加菜单</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{:U('Admin/index')}">
