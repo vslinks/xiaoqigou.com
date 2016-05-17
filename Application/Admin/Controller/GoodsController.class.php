@@ -5,7 +5,6 @@
  * Date: 2016/5/13
  * Time: 12:48
  */
-
 namespace Admin\Controller;
 use Think\Controller;
 
@@ -33,6 +32,8 @@ class GoodsController extends Controller
         $this->assign($this->_model->getPageResult($cond));
         //>>取得品牌和分类数据
         $this->assign($this->_model->getGoods());
+        $this->assign('goods_statuses',$this->_model->goods_statuses);
+        $this->assign('is_on_sales',$this->_model->is_on_sales);
         //>>渲染视图
         $this->display();
 

@@ -43,6 +43,16 @@ class GoodsModel extends Model
         array('sn','create_sn',self::MODEL_BOTH,'callback'),
         array('goods_status','array_sum',self::MODEL_BOTH,'function'),
     );
+    public $goods_statuses = array(
+        1  => '精品',
+        2  => '新品',
+        4  => '热销',
+    );
+
+    public $is_on_sales = array(
+        1  => '上架',
+        0  => '下架',
+    );
 
     /**
      * 获取好多数据
@@ -247,6 +257,7 @@ class GoodsModel extends Model
             return false;
         };
         //>>保存相册信息
+         $goods_photo = I('post.goods_photo');
          $goods_photo = I('post.goods_photo');
         if($goods_photo){
             $photos = array();

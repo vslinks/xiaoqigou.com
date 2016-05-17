@@ -1,0 +1,134 @@
+<extend name='Layout:base'/>
+<block name='content'>
+    <h1>
+        <span class="action-span"><a href="{:U('index')}">角色管理</a></span>
+        <span class="action-span1"><a href="#">小溪沟 管理中心</a></span>
+        <span id="search_id" class="action-span1"> - {$meta_title} </span>
+    </h1>
+    <div style="clear:both"></div>
+    <div class="main-div">
+        <form method="post" action="{:U('')}" enctype="multipart/form-data" >
+            <table cellspacing="1" cellpadding="3" width="100%">
+                <tr>
+                    <td class="label">角色名称</td>
+                    <td>
+                        <input type="text" name="name" maxlength="60" value="{$row.name}" />
+                        <span class="require-field">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">权限分配</td>
+                    <td>
+                        <div id="myHidden"></div>
+                        <ul id="ztree" class="ztree"></ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">角色描述</td>
+                    <td>
+                        <textarea  name="intro" cols="60" rows="4">{$row.intro}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><br />
+                        <present name="row">
+                            <input type="hidden" name="id" value="{$row.id}" />
+                        </present>
+                        <input type="submit" class="button" value=" 确定 " />
+                        <input type="reset" class="button" value=" 重置 " />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</block>
+<block name="css">
+    <css href="__EXT__/zTree/css/zTreeStyle/zTreeStyle.css" />
+    <style type="text/css">
+
+        /**商品分类的ztree样式**/
+        .ztree{
+            width:220px;
+            height:auto;
+            margin-top: 10px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
+</block>
+<block name='js'>
+    <js href="__PUBLIC__/Admin/js/jquery.min.js"/>
+    <js href="__EXT__/layer/layer.js"/>
+    <js href="__EXT__/zTree/js/jquery.ztree.core.min.js" />
+    <js href="__EXT__/zTree/js/jquery.ztree.excheck.min.js" />
+    <script type="text/javascript">
+        $(function(){
+            /**
+             * 在这里使用zTree 树 插件
+             */
+
+            var setting =
+            {
+                "check":
+                {
+                    "enable": true,
+                    "chkboxType": {"Y": "s", "N": "s"}
+                },
+
+                "data":
+                {
+                    "simpleData":
+                    {
+                        "enable": true,
+                        "pIdKey": 'parent_id'  //>>告知 zTree插件 ,我们使用父级id号为parent_id  .
+                    }
+                },
+                "callback":
+                {
+                    "onCheck": function ()
+                    {
+                        //>> 获取所有被选中的节点
+                        var checkedNodes = zTreeInit.getCheckedNodes(true); //>>参数true表示获取选中的,如果为false 表示获取未选中的
+//                        console.debug(checkedNodes);
+                        //>>先删除所有隐藏域
+                        var myHidden = $('#myHidden');
+                        myHidden.empty();
+                        $(checkedNodes).each(function()
+                        {
+                            //>>在这里处理选中之后的事务
+                            var id=this.id; //>>取出id
+                            var name=this.name; //>>取出角色描述
+                            //>>添加一个隐藏域.
+                            var html = "<input type='hidden' name='permission_id[]' value='" + id + "' />";
+                            $(html).appendTo(myHidden);
+                        })
+                    }
+                }
+            };
+            var myUl = $('#ztree');
+            var zNodes = {$rows};  //>>保存所有节点数据
+//            console.debug(zNodes);
+            var zTreeInit = $.fn.zTree.init(myUl,setting,zNodes);
+            zTreeInit.expandAll(true);
+            <present name="permissiones">
+                    var permissiones = {$permissiones};
+                    $(permissiones).each(function(index,value){
+                        //>>在这里设置回去显
+                        //>>获取节点对象
+                        var node = zTreeInit.getNodeByParam('id',value.permission_id);
+                        //>>使用checkNode方法实现回显.
+                        zTreeInit.checkNode(node,true);
+
+                        //>>在这里把隐藏域添加 上
+                        var html = "<input type='hidden' name='permission_id[]' value='" + value.permission_id + "' />";
+                        $(html).appendTo(myHidden);
+                    })
+            </present>
+
+
+
+        });
+    </script>
+</block>

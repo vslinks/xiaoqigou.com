@@ -7,6 +7,7 @@
  */
 
 /**
+ * 用于展示下拉列表框
  * @param array $data  传入需要遍历的数据
  * @param $fields_name   提交的字段名称
  * @param $fields_id
@@ -26,5 +27,26 @@ function showSelect(array $data,$fields_name,$fields_id,$name,$id){
     $selectHtml .= '</select>';
     return $selectHtml;
 
+}
+
+/**
+ * @param array $data
+ * @param $name
+ * @param $id
+ * @return string
+ */
+function showStatusAndSale(array $data,$name,$id){
+
+    $selectHtml = '<select name="' . $name . '" >';
+    $selectHtml .= '<option value="">请选择...</option>';
+    $selected = "";
+    foreach($data as $key => $val){
+        if($key === $id){
+            $selected = 'selected="selected"';
+        }
+        $selectHtml .= '<option value="' . $key . '" ' . $selected . '>' . $val . '</option>';
+    }
+    $selectHtml .= '</select>';
+    return $selectHtml;
 
 }
