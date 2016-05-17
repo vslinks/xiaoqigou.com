@@ -119,7 +119,7 @@ class RoleModel extends Model
             return false;
         }
 
-        //>>删除权限对应表
+        //>>删除角色权限对应表
         $rolePermission = M('RolePermission');
         $result = $rolePermission->where(array('role_id' => $id))->delete();
         if($result === false){
@@ -127,7 +127,13 @@ class RoleModel extends Model
             $this->rollback();
             return false;
         }
-
+        //>>删除角色管理员对应表
+        $admin_rloeModel = M('AdminRole');
+        if(($admin_rloeModel->where(array('role_id' => $id))->delete()) === false){
+            $this->error = $admin_rloeModel->getError();
+            $this->rollback();
+            return false;
+        }
         //>>删除成功
         $this->commit();
         return true;

@@ -1,6 +1,6 @@
 <?php
 /**
- *È¨ÏŞÄ£ĞÍÀàÎÄ¼ş
+ *æƒé™æ¨¡å‹ç±»æ–‡ä»¶
  * User: wanyunshan
  * Date: 2016/5/15
  * Time: 19:09
@@ -19,7 +19,7 @@ use Think\Model;
 class PermissionModel extends Model
 {
     /**
-     * »ñÈ¡²¢·µ»ØËùÓĞÈ¨ÏŞÊı¾İ
+     * è·å–å¹¶è¿”å›æ‰€æœ‰æƒé™æ•°æ®
      * @return array
      */
     public function getList()
@@ -29,23 +29,23 @@ class PermissionModel extends Model
     }
 
     /**
-     * Íê³ÉÌí¼ÓÈ¨ÏŞµÄ²Ù×÷
+     * å®Œæˆæ·»åŠ æƒé™çš„æ“ä½œ
      */
     public function addPermission()
     {
-        //>>±£´æÊı¾İ
+        //>>ä¿å­˜æ•°æ®
         $parent_id =  $this->data['parent_id'];
         $requestDate = $this->data;
-        //>>ÊµÀı»¯nestedSets Êı¾İ¿â²Ù×÷¶ÔÏó
+        //>>å®ä¾‹åŒ–nestedSets æ•°æ®åº“æ“ä½œå¯¹è±¡
         $nestedSets = $this->_initNestedSets();
-        //>>µ÷ÓÃinsert·½·¨½øĞĞÊı¾İÌí¼Ó²Ù×÷
+        //>>è°ƒç”¨insertæ–¹æ³•è¿›è¡Œæ•°æ®æ·»åŠ æ“ä½œ
         $result = $nestedSets->insert($parent_id,$requestDate,'bottom');
         if($result === false){
-            //>>Ìí¼ÓÊ§°Ü
-            $this->error = 'Ìí¼ÓÊ§°Ü';
+            //>>æ·»åŠ å¤±è´¥
+            $this->error = 'æ·»åŠ å¤±è´¥';
             return false;
         }else{
-            //>>Ìí¼Ó³É¹¦
+            //>>æ·»åŠ æˆåŠŸ
             return true;
         }
     }
@@ -53,51 +53,79 @@ class PermissionModel extends Model
     public function getRow($id)
     {
         $row = $this->find($id);
-        //>>È¡µÃËùÓĞÈ¨ÏŞÊı¾İ
+        //>>å–å¾—æ‰€æœ‰æƒé™æ•°æ®
         return $row;
 
     }
 
     /**
-     * ĞŞ¸ÄÊı¾İ²Ù×÷
+     * ä¿®æ”¹æ•°æ®æ“ä½œ
      */
     public function editPermission()
     {
-        //>>±£´æÊÕ¼¯µ½µÄÊı¾İ
+        //>>ä¿å­˜æ”¶é›†åˆ°çš„æ•°æ®
         $requestDate = $this->data;
-        //>>¸ù¾İ
+        //>>æ ¹æ®
         $parent_id_copy = I('post.parent_id_copy');
         if($requestDate['parent_id'] !=$parent_id_copy){
-            //>>ËµÃ÷ÓĞĞŞ¸ÄÁË¸¸¼¶·ÖÀà ½øĞĞÖØĞÂ¼ÆËã×óÓÒ±ß½ç
+            //>>è¯´æ˜æœ‰ä¿®æ”¹äº†çˆ¶çº§åˆ†ç±» è¿›è¡Œé‡æ–°è®¡ç®—å·¦å³è¾¹ç•Œ
 
             $nestedSets = $this->_initNestedSets();
-            //>>µ÷ÓÃinsert·½·¨½øĞĞÊı¾İÌí¼Ó²Ù×÷
+            //>>è°ƒç”¨insertæ–¹æ³•è¿›è¡Œæ•°æ®æ·»åŠ æ“ä½œ
             $result = $nestedSets->moveUnder($requestDate['id'],$requestDate['parent_id'],'bottom');
             if($result === false){
-                //>>Ìí¼ÓÊ§°Ü
-                $this->error = 'ĞŞ¸ÄÊ§°Ü';
+                //>>æ·»åŠ å¤±è´¥
+                $this->error = 'ä¿®æ”¹å¤±è´¥';
                 return false;
             }
         }
-       return $this->save($requestDate);
+        return $this->save($requestDate);
     }
 
     /**
-     * ½øĞĞÉ¾³ıÈ¨ÏŞ²Ù×÷
+     * è¿›è¡Œåˆ é™¤æƒé™æ“ä½œ
      */
     public function deletePermission($id)
     {
-        //>>½øĞĞÎïÀíÉ¾³ı
+        //>>è¿›è¡Œç‰©ç†åˆ é™¤
         $nestedSets = $this->_initNestedSets();
-        $result = $nestedSets->delete($id);
-        return $result;
+        $this->startTrans();
+       if($nestedSets->delete($id) === false)
+       {
+           //>>åˆ é™¤æƒé™å¤±è´¥
+           $this->rollback();
+           return false;
+       }
+
+        //>>åˆ é™¤è§’è‰²æƒé™å¯¹åº”è¡¨
+        $role_permissionModel = M('RolePermission');
+        if(($role_permissionModel->where(array('permission_id' => $id))->delete()) === false)
+        {
+            //>>åˆ é™¤è§’è‰²æƒé™å¯¹åº”è¡¨æ•°æ®å¤±è´¥
+            $this->error = $role_permissionModel->getError();
+            $this->rollback();
+            return false;
+
+        }
+        //>>åˆ é™¤ç®¡ç†å‘˜é¢å¤–æƒé™å¯¹åº”è¡¨æ•°æ®
+        $admin_permissionModel = M('AdminPermission');
+        if(($admin_permissionModel->where(array('permission_id' => $id))->delete()) === false)
+        {
+            //>>åˆ é™¤è§’è‰²æƒé™å¯¹åº”è¡¨æ•°æ®å¤±è´¥
+            $this->error = $admin_permissionModel->getError();
+            $this->rollback();
+            return false;
+
+        }
+        $this->commit();
+        return true;
 
     }
 
     private function _initNestedSets()
     {
         $orm = D('NestedDb','Logic');
-        //>>ÊµÀı»¯nestedSets ¶ÔÏó
+        //>>å®ä¾‹åŒ–nestedSets å¯¹è±¡
         $nestedSets = new NestedSetsService($orm,$this->trueTableName,'lft','rght','parent_id','id','level');
         return $nestedSets;
     }
