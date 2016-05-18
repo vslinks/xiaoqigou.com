@@ -29,6 +29,7 @@ class AdminModel extends Model
         ['email', '', '邮箱已经存在', self::EXISTS_VALIDATE, 'unique', self::MODEL_INSERT],
         ['password', '6,12', '密码需要6-12位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT],
         ['repassword', 'password', '两次密码输入不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_INSERT],
+//        ['old_password', 'old_new_check', '新旧密码一样,请重新选择新密码', self::EXISTS_VALIDATE, 'callback', self::MODEL_INSERT],
 //        ['captcha', 'checkVerify', '验证码输入不正确', self::EXISTS_VALIDATE, 'callback', 'login'],
     );
 
@@ -43,6 +44,21 @@ class AdminModel extends Model
         array('last_login_time',NOW_TIME,'login'),
         array('last_login_ip','get_client_ip','login','function',1),
     );
+
+    /**
+     * 验证新旧密码是否一致
+     * @param $old_password
+     */
+  /*  protected function old_new_check($old_password)
+    {
+        $user_info = save_user_info();//>>从session中取出用户信息
+        $salt_password = md5(md5($old_password) . $user_info['salt']);
+        if($user_info['password'] == $salt_password){
+            return false;
+        }else{
+            return true;
+        }
+    }*/
     protected function checkVerify($code)
     {
         $verify = new Verify();
@@ -321,5 +337,51 @@ WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id) AND m.id=mp.me
             //>>保存令牌到数据库.
             $this->setField($cookie_info);
         }
+
+    /**
+     * 专业修改密码
+     */
+    public function update_password()
+    {
+        $request_data = $this->data;
+
+        $old_password = I('post.old_password');
+        if($old_password == $request_data['password']){
+            //>>新密码与原始密码一样.请重新输入.
+            $this->error = "新密码与原始密码一样.请重新输入";
+            return false;
+        }
+        //>>先验证原始密码是否正确
+        $user_info = save_user_info();//>>从session中取出用户信息
+        $salt_password = md5(md5($old_password) . $user_info['salt']);
+//        dump($salt_password);exit;
+        if($user_info['password'] == $salt_password){
+            //>.验证成功,进行修改
+            //>>准备数据
+            $new_data = array(
+                'id'       => $user_info['id'],
+                'password' => md5(md5($request_data['password']) . $request_data['salt']),
+                'salt'     => $request_data['salt'],
+            );
+            //>>保存
+            if($this->save($new_data) === false){
+                //>>修改失败
+                return false;
+            }
+            //>>重新保存新的信息到session 和cookie
+            //>>取出最新数据
+            $user_info = $this->find($user_info['id']);
+            //>>保存到session中
+            save_user_info($user_info);
+            //>>保存新的cookie信息
+            $this->_save_cookie_info($user_info['id']);
+            //>.所有的修成功后,才返回true;
+            return true;
+        }else{
+            //>>原始密码不正确
+            $this->error = '原始密码不正确';
+            return false;
+        }
+    }
 
 }

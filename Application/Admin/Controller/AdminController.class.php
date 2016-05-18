@@ -167,4 +167,27 @@ class AdminController extends Controller
         $permission_list = D('permission')->getList();
         $this->assign('permission_list',json_encode($permission_list));
     }
+    /**
+     * 修改密码
+     */
+    public function updatepwd()
+    {
+        if(IS_POST){
+            //>>收集数据
+            if($this->_model->create() === false){
+                //>>收集数据失败
+                $this->error($this->_model->getError());
+            }
+            if($this->_model->update_password() === false){
+                //>>修改数据失败
+                $this->error($this->_model->getError());
+            }
+            //>> 修改成功
+            $this->success('修改成功',U('index'));
+        }else{
+            //>.渲染修改密码视图
+            $this->display();
+        }
+    }
+
 }
