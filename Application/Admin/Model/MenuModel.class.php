@@ -21,8 +21,10 @@ class MenuModel extends Model
     //>>返回所有菜单数据
     public function getList()
     {
-        $rows = $this->order('lft')->select();
-        return  $rows;
+        $row = $this->field('id,parent_id,name')->order('lft')->select();
+        array_unshift($row,array('id'=> 0,'parent_id'=>null,'name' => '顶级'));
+        dump($orw);
+        return $row;
     }
 
     /**

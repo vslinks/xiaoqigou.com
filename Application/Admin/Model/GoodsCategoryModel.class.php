@@ -32,16 +32,6 @@ class GoodsCategoryModel extends Model
 //     */
 //    protected $patchValidate = true;
 
-
-    public function getZtreeList(){
-        //>>获取列表数据方法
-        $rows = $this->field('*')
-                ->order('`lft`')                 //>> 以left左边界排序 就自动是按照无限极分类排序的
-                ->where(array('status' => 1))  //>>状态为1 表示正在使用的
-                ->select();
-        return $rows;
-    }
-
     /**
      * 添加商品分类方法
      */
@@ -117,6 +107,9 @@ class GoodsCategoryModel extends Model
      * @return array
      */
     public function getList(){
-        return $this->where(array('status' => 1))->select();
+//        return $this->where(array('status' => 1))->select();
+        $row = $this->field('id,parent_id,name')->where(array('status' => 1))->order('lft')->select();
+        array_unshift($row,array('id'=> 0,'parent_id'=>null,'name' => '菜单'));
+        return $row;
     }
 }

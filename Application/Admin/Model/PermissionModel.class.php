@@ -24,7 +24,8 @@ class PermissionModel extends Model
      */
     public function getList()
     {
-        $row = $this->order('lft')->select();
+        $row = $this->field('id,parent_id,name')->order('lft')->select();
+        array_unshift($row,array('id'=> 0,'parent_id'=>null,'name' => '所有权限'));
         return $row;
     }
 

@@ -66,22 +66,11 @@ class AdminModel extends Model
            if(md5(md5($password) . $row['salt']) == $row['password'])
            {
                //>>验证通过.把数据信息保存到sessin中
-               session('admin_info',$row);
+                save_user_info($row);
                //>>把登录管理对应的权限查询出来 存入session中
-               $sql = "SELECT path FROM permission WHERE  path <> '' AND id IN(SELECT ap.permission_id FROM admin AS a INNER JOIN admin_permission AS ap ON a.id=ap.`admin_id`
-WHERE id = " . $row['id'] . " UNION
-SELECT permission_id FROM role_permission AS rp INNER JOIN
-(SELECT role_id FROM admin AS a INNER JOIN admin_role AS ar ON A.`id`=ar.`admin_id`
-WHERE id = " . $row['id'] . ") AS roleids ON rp.role_id=roleids.role_id);
-";
-               //>>根据sql 语句查询出权限表
-               $permission_ids = M()->query($sql);
-               //>>循环,把数据放在一个一维数组中
-               $permission_info = array();
-               foreach($permission_ids as $val){
-                   $permission_info[] = $val;
-               }
-               session("permission_info",$permission_info);
+               $this->_save_permission_info($row['id']);
+               //>>查询出所有的当前用户能看到的菜单
+               $this->_save_menu_info($row['id']);
                return true;
            }
            //>>比对不成功,
@@ -270,6 +259,38 @@ WHERE id = " . $row['id'] . ") AS roleids ON rp.role_id=roleids.role_id);
         //>>删除成功.
         $this->commit();
         return true;
+    }
+
+    private function _save_permission_info($id){
+        //>>把登录管理对应的权限查询出来 存入session中
+        $sql = "SELECT path FROM permission WHERE  path <> '' AND id IN(SELECT ap.permission_id FROM admin AS a INNER JOIN admin_permission AS ap ON a.id=ap.`admin_id`
+WHERE id = " . $id . " UNION
+SELECT permission_id FROM role_permission AS rp INNER JOIN
+(SELECT role_id FROM admin AS a INNER JOIN admin_role AS ar ON A.`id`=ar.`admin_id`
+WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id);
+";
+        //>>根据sql 语句查询出权限表
+        $permission_ids = M()->query($sql);
+        //>>循环,把数据放在一个一维数组中
+        $permission_info = array();
+        foreach($permission_ids as $val){
+            $permission_info[] = $val;
+        }
+        save_permission_info($permission_info);
+    }
+
+    public function _save_menu_info($id){
+        //>>查询出所有的当前用户能看到的菜单
+
+        $sql = "SELECT DISTINCT `name`,path FROM menu AS m,menu_permission AS mp
+WHERE mp.permission_id IN(SELECT ap.permission_id FROM admin AS a INNER JOIN admin_permission AS ap ON a.id=ap.`admin_id`
+WHERE id = " . $id . " UNION
+SELECT permission_id FROM role_permission AS rp INNER JOIN
+(SELECT role_id FROM admin AS a INNER JOIN admin_role AS ar ON A.`id`=ar.`admin_id`
+WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id) AND m.id=mp.menu_id;";
+
+        $pathes = M('')->query($sql);
+        save_menu_info($pathes);
     }
 
 }

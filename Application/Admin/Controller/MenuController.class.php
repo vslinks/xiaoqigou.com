@@ -72,9 +72,7 @@ class MenuController extends Controller
             $this->success('添加成功',U('index'));
         }else{
             //>>获取所有菜单数据
-            $this->assign('menu_list',json_encode($this->_model->getList()));
-            //>>获取权限数据
-            $this->assign('permission_list',json_encode(D('permission')->getList()));
+            $this->_before_view();
             $this->display();
         }
 
@@ -132,7 +130,10 @@ class MenuController extends Controller
     {
         $this->assign('menu_list',json_encode($this->_model->getList()));
         //>>获取权限数据
-        $this->assign('permission_list',json_encode(D('permission')->getList()));
+        $row =  D('permission')->getList();
+        array_shift($row);
+//        dump($row);exit;
+        $this->assign('permission_list',json_encode($row));
 
 
     }

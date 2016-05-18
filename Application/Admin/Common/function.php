@@ -50,3 +50,37 @@ function showStatusAndSale(array $data,$name,$id){
     return $selectHtml;
 
 }
+
+/**
+ * 保存或取出登录后的用户信息
+ */
+function save_user_info($user_info = null)
+{
+    if($user_info === null){
+        return session('user_info');
+    }else{
+        session('user_info',$user_info);
+    }
+}
+/**
+ * 保存或取出权限信息
+ */
+function save_permission_info($permission_info = null)
+{
+    if($permission_info !== null){
+        session('permission_info',$permission_info);
+    }else{
+        return session('permission_info');
+    }
+}
+/**
+ * 保存或取出显示菜单信息
+ */
+function save_menu_info($menu_info = null)
+{
+    if($menu_info !== null){
+        session('menu_info',$menu_info);
+    }else{
+        return session('menu_info');
+    }
+}

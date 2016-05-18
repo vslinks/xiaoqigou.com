@@ -46,7 +46,7 @@ class GoodsCategoryController extends Controller
      */
     public function index(){
         //>>获取所有分类列表
-        $rows = $this->_model->getZtreeList();
+        $rows = $this->_model->getList();
         //>>赋值数据到模板
         $this->assign('rows',$rows);
         //>>渲染添加页面视图
@@ -73,7 +73,7 @@ class GoodsCategoryController extends Controller
             $this->success('添加成功',U('index'));
         }else{
             //>>获取所有分类列表
-            $rows = $this->_model->getZtreeList();
+            $rows = $this->_model->getList();
             //>>赋值数据到模板
             $this->assign('rows',json_encode($rows));
 
@@ -105,7 +105,7 @@ class GoodsCategoryController extends Controller
             $row = $this->_model->find(I('get.id'));
             $this->assign('row',$row);
             //>>获取所有分类列表
-            $rows = $this->_model->getZtreeList();
+            $rows = $this->_model->getList();
             //>>赋值数据到模板
             $this->assign('rows',json_encode($rows));
 

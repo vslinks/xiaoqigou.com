@@ -21,7 +21,7 @@ class checkRoleBehavior extends Behavior
     public function run(&$params) //>>使用引用传值
     {
         //>>在这里写具体的行为代码;
-        $admin_info = session('admin_info');
+        $admin_info = save_user_info();
         $url = MODULE_NAME . '/' . CONTROLLER_NAME  . '/' .  ACTION_NAME;
         if(!$admin_info){
             $login = C('login');
@@ -37,7 +37,7 @@ class checkRoleBehavior extends Behavior
                 return false;
             }
             //>>获取当前管理员拥有的 权限
-            $permission_info = session('permission_info');
+            $permission_info = save_permission_info();
             //>>循环把灵气放在一维数组中
             $perInfo = array();
             foreach($permission_info as $val){
