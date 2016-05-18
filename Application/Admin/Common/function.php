@@ -84,3 +84,12 @@ function save_menu_info($menu_info = null)
         return session('menu_info');
     }
 }
+
+function save_cookie_info($cookie_info=null,$time=604800)
+{
+    if($cookie_info === null || empty($cookie_info)){
+        return cookie('cookie_info');
+    }else{
+        cookie('cookie_info',$cookie_info,$time);
+    }
+}

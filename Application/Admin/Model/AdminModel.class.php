@@ -60,13 +60,26 @@ class AdminModel extends Model
     {
         $username = $this->data['username'];
         $password = $this->data['password'];
+        $create_data = $this->data;
        if($row = $this->getByUsername($username))
        {
            //>>如果有数据进行密码验证
            if(md5(md5($password) . $row['salt']) == $row['password'])
            {
-               //>>验证通过.把数据信息保存到sessin中
+               //>>验证通过.这里要保存登录时间及登录ip到数据库
+                    $ip_time_info = array(
+                        'last_login_time' => $create_data['last_login_time'],
+                        'last_login_ip' => $create_data['last_login_ip'],
+                        'id' => $row['id'],
+                    );
+               $this->setField($ip_time_info);
+               //>>把数据信息保存到sessin中
                 save_user_info($row);
+               //>>再判断是否有勾选记住我.如果勾选了,进行保存信息
+               $remember = I('post.remember');
+               if(!empty($remember)){
+                   $this->_save_cookie_info($row['id']);
+               }
                //>>把登录管理对应的权限查询出来 存入session中
                $this->_save_permission_info($row['id']);
                //>>查询出所有的当前用户能看到的菜单
@@ -261,7 +274,7 @@ class AdminModel extends Model
         return true;
     }
 
-    private function _save_permission_info($id){
+    public function _save_permission_info($id){
         //>>把登录管理对应的权限查询出来 存入session中
         $sql = "SELECT path FROM permission WHERE  path <> '' AND id IN(SELECT ap.permission_id FROM admin AS a INNER JOIN admin_permission AS ap ON a.id=ap.`admin_id`
 WHERE id = " . $id . " UNION
@@ -282,7 +295,7 @@ WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id);
     public function _save_menu_info($id){
         //>>查询出所有的当前用户能看到的菜单
 
-        $sql = "SELECT DISTINCT `name`,path FROM menu AS m,menu_permission AS mp
+        $sql = "SELECT DISTINCT `name`,id,path,parent_id FROM menu AS m,menu_permission AS mp
 WHERE mp.permission_id IN(SELECT ap.permission_id FROM admin AS a INNER JOIN admin_permission AS ap ON a.id=ap.`admin_id`
 WHERE id = " . $id . " UNION
 SELECT permission_id FROM role_permission AS rp INNER JOIN
@@ -290,7 +303,23 @@ SELECT permission_id FROM role_permission AS rp INNER JOIN
 WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id) AND m.id=mp.menu_id;";
 
         $pathes = M('')->query($sql);
+//        header("Content-Type:text/html;charset=utf-8");
+//        dump($pathes);exit;
         save_menu_info($pathes);
     }
+
+
+    public function _save_cookie_info($id){
+            //>>如果不为空,说明有勾选
+            //>>1.生成一个令牌与id一起保存到cookie中,并且把令牌保存到数据库中.
+            $token =md5( mcrypt_create_iv(32));//>>生成令牌
+            $cookie_info = array(
+                'id'           => $id,
+                'cookie_token' => $token,
+            );
+            save_cookie_info($cookie_info);//>>保存cookie
+            //>>保存令牌到数据库.
+            $this->setField($cookie_info);
+        }
 
 }

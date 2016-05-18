@@ -3,6 +3,7 @@ return array(
 	//'配置项'=>'配置值'
     'ignore'  => array(
         "Admin/Admin/login",
+        "Admin/Admin/logout",
         "Admin/Index/index",
         "Admin/Index/index_v1",
         "Admin/Index/index_v2",
@@ -16,4 +17,7 @@ return array(
         "Admin/Admin/login",
         "Admin/Captcha/captcha",
     ),
+
+    "COOKIE_PREFIX"  => 'vslinks_shop_com_',
+
 );

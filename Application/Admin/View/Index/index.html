@@ -36,7 +36,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                                 <span class="clear">
                                <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-                                <span class="text-muted text-xs block">{$Think.session.admin_info.username}<b class="caret"></b></span>
+                                <span class="text-muted text-xs block">{$Think.session.user_info.username}<b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -81,6 +81,26 @@
                     </ul>
 
                 </li>
+                <volist name="Think.session.menu_info" id="val">
+                    <eq name="val.parent_id" value='0'>
+                <li>
+                    <a href="{$val.path}">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">{$val.name}</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <volist name="Think.session.menu_info" id="seval">
+                            <eq name="seval.parent_id" value='$val.id'>
+                        <li>
+                            <a class="J_menuItem" href="{:U($seval['path'])}">{$seval.name}</a>
+                        </li>
+                            </eq>
+                        </volist>
+                    </ul>
+                </li>
+                    </eq>
+                </volist><!--
                 <li>
                     <a href="{:U('Menu/index')}">
                         <i class="fa fa-home"></i>
@@ -232,7 +252,7 @@
                             <a class="J_menuItem" href="{:U('Supplier/add')}">添加供应商</a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
                 <li>
                     <a class="J_menuItem" href="{:U('layouts')}"><i class="fa fa-columns"></i> <span class="nav-label">布局</span></a>
                 </li>
