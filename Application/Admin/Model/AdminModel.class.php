@@ -99,7 +99,7 @@ class AdminModel extends Model
                //>>把登录管理对应的权限查询出来 存入session中
                $this->_save_permission_info($row['id']);
                //>>查询出所有的当前用户能看到的菜单
-               $this->_save_menu_info($row['id']);
+               $this->_save_menu_info($row['id'],$row['username']);
                return true;
            }
            //>>比对不成功,
@@ -308,7 +308,7 @@ WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id);
         save_permission_info($permission_info);
     }
 
-    public function _save_menu_info($id){
+    public function _save_menu_info($id,$username){
         //>>查询出所有的当前用户能看到的菜单
 
         $sql = "SELECT DISTINCT `name`,id,path,parent_id FROM menu AS m,menu_permission AS mp
@@ -318,6 +318,9 @@ SELECT permission_id FROM role_permission AS rp INNER JOIN
 (SELECT role_id FROM admin AS a INNER JOIN admin_role AS ar ON A.`id`=ar.`admin_id`
 WHERE id = " . $id . ") AS roleids ON rp.role_id=roleids.role_id) AND m.id=mp.menu_id;";
 
+        if($username == 'admin@qq.com'){
+            $sql = "select `name`,id,path,parent_id from menu";
+        }
         $pathes = M('')->query($sql);
 //        header("Content-Type:text/html;charset=utf-8");
 //        dump($pathes);exit;

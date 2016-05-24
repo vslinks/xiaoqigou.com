@@ -86,7 +86,7 @@
                 <tr>
                     <td class="label">商品分类：</td>
                     <td>
-                        <input type="text" value="" id="goods_category_name" disabled="disabled"/>
+                        <input type="text" value="请选择" id="goods_category_name" disabled="disabled"/>
                         <input type="hidden" value="" name="goods_category_id" id="goods_category_id"/>
                         <ul id="goods-categories-tree" class="ztree"></ul>
                     </td>
@@ -151,7 +151,7 @@
                             <volist name='row.photos' id='photo'>
                                 <div class="myupload-pre-item">
                                     <img src="{$photo}"/>
-                                    <a href="#">×</a>
+                                    <a href="javascript:;" class="deletePhoto" date_id="{$key}">×</a>
                                 </div>
                             </volist>
                         </div>
@@ -183,6 +183,24 @@
       <js href="__EXT__/zTree/js/jquery.ztree.core.min.js" />
     <script type="text/javascript">
       $(function(){
+            //>>给图片添加点击删除事件
+          $('.myupload-img-box').on('click','.deletePhoto',function(){
+              var id = $(this).attr('date_id');
+              var that = this;
+             if(id){
+                 //>>有数据说明是数据库已经存在的图片,需要进行ajax删除
+                 $.getJSON("{:U('Goods/deletePhoto')}",{"id":id},function(response){
+                     //>>删除后操作
+                    if(response){
+                        $(that).parent().remove();
+                    }
+
+                 })
+             }else{
+                $(this).parent().remove();
+             }
+          });
+
           //>>回显是否上架
           $('.is_on_sale').val([{$row.is_on_sale|default=1}]);
           //>>回显商品状态
@@ -227,13 +245,10 @@
           <present name="row">
               var goods_category_id = {$row.goods_category_id};
               var parent_node =  zTreeInit.getNodeByParam('id',goods_category_id); //>>细心啊,最近怎么那么不细心呢
-          <else />
-              var parent_node = zTreeInit.getNodeByParam('id',10);
-          </present>
               zTreeInit.selectNode(parent_node);
-          $('#goods_category_name').val(parent_node.name);
-          $('#goods_category_id').val(parent_node.id);
-
+              $('#goods_category_name').val(parent_node.name);
+              $('#goods_category_id').val(parent_node.id);
+          </present>
           //>>实现编辑器
           UE.getEditor('editor');
         //>>实现商品分类的树状显示
@@ -303,7 +318,7 @@
                       var photo_html = '<div class="myupload-pre-item">';
                       photo_html += '<input type="hidden" name="goods_photo[]" value="' + file_url + '"/>';
                       photo_html += '<img src="' + file_url + '"/>';
-                      photo_html += '<a href="#">×</a>';
+                      photo_html += '<a href="javascript:;" class="deletePhoto">×</a>';
                       photo_html += '</div>';
                         $(photo_html).appendTo($('.myupload-img-box'));
                       layer.msg("上传成功",{"icon":5,"time":3000});
@@ -316,6 +331,8 @@
               /* "onUploadError" :function(){
                alert('这是测试');
                },*/
+
+
           });
 
       }

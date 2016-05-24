@@ -93,3 +93,10 @@ function save_cookie_info($cookie_info=null,$time=604800)
         cookie('cookie_info',$cookie_info,$time);
     }
 }
+
+function encrypt($num=6)
+{
+    //>>专业生成盐
+    $salt = \Org\Util\String::randString($num);
+    return $salt;
+}

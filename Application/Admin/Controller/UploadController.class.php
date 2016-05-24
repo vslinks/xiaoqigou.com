@@ -61,7 +61,7 @@ class UploadController extends Controller
                 if($upload->driver == 'Qiniu'){
                     $file_url = $file_info['url'];
                 }else{
-                    $file_url = ltrim($config['rootPath'] . $file_info['savepath'] . $file_info['savename'], '.');
+                    $file_url = MY_URL . (ltrim($config['rootPath'] . $file_info['savepath'] . $file_info['savename'], '.'));
                 }
             }
         $return = array(

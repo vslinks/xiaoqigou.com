@@ -97,6 +97,22 @@ class GoodsController extends Controller
     }
 
     /**
+     * ajax删除图片操作
+     */
+    public function deletePhoto()
+    {
+        $id = I('get.id');
+        if(M('GoodsPhoto')->delete($id) === false){
+            //>>删除失败
+            $flag = false;
+        }else{
+            //>>删除成功
+            $flag = true;
+        }
+        $this->ajaxReturn($flag);
+    }
+
+    /**
      * 商品删除操作
      */
     public function delete(){

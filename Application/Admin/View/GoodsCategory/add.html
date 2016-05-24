@@ -26,7 +26,7 @@
                     <td class="label">上级分类</td>
                     <td>
                         <input type="hidden" name="parent_id" value="" id="goods_category_id" />
-                        <input type="text" value="" disabled="disabled" id="goods_category_name" />
+                        <input type="text" value="请选择" disabled="disabled" id="goods_category_name" />
                         <ul id="goods-categories-tree" class="ztree"></ul>
                     </td>
                 </tr>
@@ -120,12 +120,11 @@
         <present name="row">
              //>>如果row 变量有定义 在这里回显上级分类
             var parent_node = zTreeInit.getNodeByParam('id',{$row['parent_id']});
-            <else />
-             var parent_node = zTreeInit.getNodeByParam('id',10);
+            zTreeInit.selectNode(parent_node);
+            $('#goods_category_id').val(parent_node.id);
+            $('#goods_category_name').val(parent_node.name);
         </present>
-        zTreeInit.selectNode(parent_node);
-        $('#goods_category_id').val(parent_node.id);
-        $('#goods_category_name').val(parent_node.name);
+
         });
     </script>
 </block>

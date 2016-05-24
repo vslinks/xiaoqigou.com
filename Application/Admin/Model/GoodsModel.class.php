@@ -65,6 +65,7 @@ class GoodsModel extends Model
         $supplier_list = D('Supplier')->where(array('status' => 1))->select();
         //>>获取商品分类数据
         $goods_cate_list = D('GoodsCategory')->where(array('status' => 1))->select();
+//        dump($goods_cate_list);exit;
         //>>返回获取到的数据
         return array(
             'cate_list' =>$cate_list,
@@ -212,7 +213,7 @@ class GoodsModel extends Model
         //>>获取相册数据
         $photos = M('GoodsPhoto')
             ->where(array('goods_id' => $id))
-            ->getField('path',true);
+            ->getField('id,path',true);
         //>>判断并把相册数据放入回显数组中
         if($row && $photos){
             $row['photos'] = $photos;

@@ -82,7 +82,21 @@ class AdminController extends Controller
      */
     public function logout()
     {
+        $user_info = save_user_info();
+        $id = $user_info['id'];
+        //>>生成一个新的令牌
+        $cookie_token = encrypt();
+        $data = array(
+            'id' => $id,
+            'cookie_token' => $cookie_token,
+        );
+        //>>更改数据库中的令牌
+        $this->_model->setField($data);
+        //>>清除session
         session(null);
+        //>>清除cookie
+        cookie(null);
+        //>>删除数据库中的token
         $this->success('退出成功',U('login'));
     }
     /**
