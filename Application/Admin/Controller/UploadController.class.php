@@ -71,4 +71,9 @@ class UploadController extends Controller
         );
        $this->ajaxReturn($return);
     }
+
+    public function testGit()
+    {
+        echo 'this is a demo';
+    }
 }
